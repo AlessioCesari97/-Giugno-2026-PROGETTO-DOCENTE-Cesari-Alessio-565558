@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+
+
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+
+
+<body>
+
+
+
+<nav th:fragment="navbar"
+     class="navbar navbar-expand-lg navbar-dark custom-navbar">
+
+
+
+    <div class="container-fluid">
+
+
+
+
+
+        <a class="navbar-brand"
+           th:href="@{/}">
+
+
+            ⚽ Football Tournament
+
+
+        </a>
+
+
+
+
+
+
+
+        <div class="navbar-nav">
+
+
+
+
+
+            <a class="nav-link"
+               th:href="@{/tournaments}">
+
+
+                Tornei
+
+
+            </a>
+
+
+
+
+
+
+
+
+            <a class="nav-link"
+               th:href="@{/matches}">
+
+
+                Partite
+
+
+            </a>
+
+
+
+
+
+
+
+
+
+
+            <a sec:authorize="hasRole('ADMIN')"
+               class="nav-link"
+               th:href="@{/admin/tournaments}">
+
+                Gestione Tornei
+
+            </a>
+
+
+
+            <a sec:authorize="hasRole('ADMIN')"
+               class="nav-link"
+               th:href="@{/admin/teams}">
+
+                Gestione Squadre
+
+            </a>
+
+
+
+            <a sec:authorize="hasRole('ADMIN')"
+               class="nav-link"
+               th:href="@{/admin/players}">
+
+                Gestione Giocatori
+
+            </a>
+
+
+
+            <a sec:authorize="hasRole('ADMIN')"
+               class="nav-link"
+               th:href="@{/admin/matches}">
+
+                Gestione Partite
+
+            </a>
+
+
+            <a class="nav-link"
+               href="http://localhost:5173">
+
+                React Classifica
+
+            </a>
+
+
+
+
+        </div>
+
+
+
+
+
+
+
+
+        <div class="d-flex align-items-center">
+
+
+
+
+
+
+            <span sec:authorize="isAuthenticated()"
+                  class="text-light me-3">
+
+
+
+                👤
+
+
+                <b sec:authentication="name">
+
+                </b>
+
+
+
+
+
+            </span>
+
+
+
+
+
+
+
+
+
+
+            <form sec:authorize="isAuthenticated()"
+
+                  th:action="@{/logout}"
+
+                  method="post">
+
+
+
+
+
+
+                <button class="btn btn-outline-light btn-sm">
+
+
+                    Logout
+
+
+                </button>
+
+
+
+
+
+
+
+            </form>
+
+
+
+
+
+
+
+
+
+            <a sec:authorize="!isAuthenticated()"
+
+               class="btn btn-outline-light btn-sm"
+
+               th:href="@{/login}">
+
+
+
+                Login
+
+
+
+            </a>
+
+
+
+
+
+
+
+
+        </div>
+
+
+
+
+
+
+
+    </div>
+
+
+
+
+
+</nav>
+
+
+
+
+</body>
+
+
+</html>

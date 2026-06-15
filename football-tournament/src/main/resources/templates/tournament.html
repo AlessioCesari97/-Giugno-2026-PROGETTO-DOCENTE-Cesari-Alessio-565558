@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+
+
+<html xmlns:th="http://www.thymeleaf.org">
+
+
+
+<head>
+
+
+
+    <title>Torneo</title>
+
+
+
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+          rel="stylesheet">
+
+
+
+
+    <link rel="stylesheet"
+          href="/css/style.css">
+
+
+
+
+</head>
+
+
+
+
+
+
+
+<body>
+
+
+
+
+
+<div th:replace="~{fragments/navbar :: navbar}">
+
+</div>
+
+
+
+
+
+
+
+
+
+<div class="container page-box">
+
+
+
+
+
+
+
+    <h1 th:text="${tournament.name}">
+
+    </h1>
+
+
+
+
+
+
+
+
+    <p class="lead"
+       th:text="${tournament.description}">
+
+    </p>
+
+
+
+
+
+
+
+
+
+
+
+
+    <h2>
+
+        Squadre partecipanti
+
+    </h2>
+
+
+
+
+
+
+
+
+    <div class="mb-4">
+
+
+
+
+
+
+        <a th:each="team : ${tournament.teams}"
+
+
+           class="team-link"
+
+
+           th:href="@{/teams/{id}(id=${team.id})}"
+
+
+           th:text="${team.name}">
+
+
+
+        </a>
+
+
+
+
+
+
+
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+    <h2>
+
+        Partite
+
+    </h2>
+
+
+
+
+
+
+
+
+
+    <table class="table table-hover">
+
+
+
+
+
+
+
+        <thead>
+
+
+        <tr>
+
+
+
+            <th>
+
+                Casa
+
+            </th>
+
+
+
+
+            <th>
+
+
+
+            </th>
+
+
+
+
+
+            <th>
+
+                Trasferta
+
+            </th>
+
+
+
+
+
+            <th>
+
+                Stato
+
+            </th>
+
+
+
+
+
+            <th>
+
+                Risultato
+
+            </th>
+
+
+
+
+
+        </tr>
+
+
+
+        </thead>
+
+
+
+
+
+
+
+
+
+        <tbody>
+
+
+
+
+
+
+
+
+        <tr th:each="match : ${tournament.matches}">
+
+
+
+
+
+
+
+
+
+            <td>
+
+
+                <a class="team-link"
+
+
+                   th:href="@{/teams/{id}(id=${match.homeTeam.id})}"
+
+
+                   th:text="${match.homeTeam.name}">
+
+
+
+                </a>
+
+
+            </td>
+
+
+
+
+
+
+
+
+
+            <td>
+
+
+                ⚔️
+
+
+            </td>
+
+
+
+
+
+
+
+
+
+
+            <td>
+
+
+                <a class="team-link"
+
+
+                   th:href="@{/teams/{id}(id=${match.awayTeam.id})}"
+
+
+                   th:text="${match.awayTeam.name}">
+
+
+
+                </a>
+
+
+
+            </td>
+
+
+
+
+
+
+
+
+
+            <td>
+
+
+
+                <span class="badge bg-success"
+
+
+                      th:if="${match.status.name()=='PLAYED'}">
+
+
+                    Giocata
+
+
+                </span>
+
+
+
+
+
+
+                <span class="badge bg-warning text-dark"
+
+
+                      th:if="${match.status.name()=='SCHEDULED'}">
+
+
+                    Programmata
+
+
+                </span>
+
+
+
+
+            </td>
+
+
+
+
+
+
+
+
+
+
+
+            <td>
+
+
+
+
+
+                <span th:if="${match.status.name()=='PLAYED'}">
+
+
+
+                    <span th:text="${match.goalsHome}">
+
+                    </span>
+
+
+                    -
+
+
+                    <span th:text="${match.goalsAway}">
+
+                    </span>
+
+
+
+                </span>
+
+
+
+
+
+
+
+                <span th:if="${match.status.name()=='SCHEDULED'}">
+
+
+
+                    -
+
+
+
+                </span>
+
+
+
+
+
+            </td>
+
+
+
+
+
+
+
+
+
+
+        </tr>
+
+
+
+
+
+
+
+
+        </tbody>
+
+
+
+
+
+
+
+    </table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <a class="btn btn-primary mt-3"
+
+
+       th:href="@{/tournaments/{id}/standing(id=${tournament.id})}">
+
+
+
+        🏆 Classifica
+
+
+
+    </a>
+
+
+
+
+
+
+
+
+
+    <a class="btn btn-secondary mt-3"
+
+
+       href="javascript:history.back()">
+
+
+
+        ← Indietro
+
+
+
+    </a>
+
+
+
+
+
+
+
+
+
+</div>
+
+
+
+
+
+
+
+</body>
+
+
+
+</html>
